@@ -34,6 +34,9 @@ mod statemachine;
 pub mod test_loader;
 pub mod traces;
 
+#[cfg(target_os = "macos")]
+pub(crate) mod mach;
+
 mod ptrace_control;
 
 static DOCTEST_FOLDER: &str = "target/doctests";
@@ -377,7 +380,7 @@ pub fn get_test_coverage(
         return Ok(None);
     }
     if let Err(e) = limit_affinity() {
-        warn!("Failed to set processor affinity {}", e);
+        println!("Failed to set processor affinity {}", e);
     }
     match fork() {
         Ok(ForkResult::Parent { child }) => {
@@ -464,7 +467,7 @@ fn execute_test(
         argv.push(CString::new(s.as_bytes()).unwrap_or_default());
     }
 
-    execute(exec_path, &argv, envars.as_slice())
+    execute(exec_path, &argv, envars.as_slice()).map(|_| ())
 }
 
 #[cfg(test)]
