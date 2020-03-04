@@ -57,6 +57,12 @@ impl From<std::io::Error> for RunError {
     }
 }
 
+impl Into<std::io::Error> for RunError {
+    fn into(self) -> std::io::Error {
+        std::io::Error::new(std::io::ErrorKind::Other, self.to_string())
+    }
+}
+
 impl From<nix::Error> for RunError {
     fn from(e: nix::Error) -> Self {
         RunError::NixError(e)

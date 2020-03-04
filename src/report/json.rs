@@ -8,7 +8,7 @@ use crate::traces::{Trace, TraceMap};
 use serde::Serialize;
 
 #[derive(Serialize)]
-struct SourceFile {
+pub struct SourceFile {
     pub path: Vec<String>,
     pub content: String,
     pub traces: Vec<Trace>,
@@ -17,8 +17,8 @@ struct SourceFile {
 }
 
 #[derive(Serialize)]
-struct CoverageReport {
-    pub files: Vec<SourceFile>,
+pub struct CoverageReport {
+    files: Vec<SourceFile>,
 }
 
 impl From<&TraceMap> for Vec<SourceFile> {
