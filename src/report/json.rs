@@ -9,12 +9,12 @@ use std::slice::Iter;
 use serde::Serialize;
 
 #[derive(Serialize)]
-pub struct SourceFile {
-    pub path: Vec<String>,
-    pub content: String,
-    pub traces: Vec<Trace>,
-    pub covered: usize,
-    pub coverable: usize,
+struct SourceFile {
+    path: Vec<String>,
+    content: String,
+    traces: Vec<Trace>,
+    covered: usize,
+    coverable: usize,
 }
 
 #[derive(Serialize)]
