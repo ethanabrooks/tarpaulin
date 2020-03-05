@@ -23,8 +23,16 @@ pub struct CoverageReport {
 }
 
 impl CoverageReport {
-    pub fn iter(&self) -> Iter<SourceFile> {
+    fn iter(&self) -> Iter<SourceFile> {
         self.files.iter()
+    }
+
+    pub fn covered(&self) -> Vec<usize> {
+        self.iter().map(|r| r.covered).collect()
+    }
+
+    pub fn coverable(&self) -> Vec<usize> {
+        self.iter().map(|r| r.coverable).collect()
     }
 }
 
